@@ -40,8 +40,6 @@ def startUp():
 	print("Ready and Waiting...")
 
 def recMessage():
-	global connectionSocket
-	connectionSocket, addr = serverSocket.accept()
 	global sentence
 	sentence  = connectionSocket.recv(1024).decode()
 	res = checkForQuit()
@@ -72,7 +70,9 @@ checkArguements()
 
 startUp()
 
-
+#only want to do this once
+global connectionSocket
+connectionSocket, addr = serverSocket.accept()
 
 while True:
 	closer = recMessage()
