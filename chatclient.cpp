@@ -2,7 +2,7 @@
  * Trevor Stahl
  * stahltr
  *
- * chatclient.c
+ * chatclient.cpp
  *
  * Program description:
  *
@@ -12,6 +12,7 @@
  *
  * Citations: I started out with code from here https://simpledevcode.wordpress.com/2016/06/16/client-server-chat-in-c-using-sockets/
  * and then studied, modified and adapted to the project
+ * Also referenced and might have used some of BEEJ's c client.c code
  */
 
 #include <iostream>
@@ -34,21 +35,23 @@ using namespace std;
 //Client side
 int main(int argc, char *argv[])
 {
-    //we need 2 things: ip address and port number, in that order
+    // Check that the right number of arguements were passed
+    // we need 2 things: ip address and port number, in that order
     if(argc != 3)
     {
         cerr << "Usage: ip_address port" << endl; exit(0); 
-    } //grab the IP address and port number 
-    char *serverIp = argv[1]; int port = atoi(argv[2]); 
-    //create a message buffer 
-    char msg[1500]; 
+    } 
+    //grab the IP address and port number 
+    char *serverIp = argv[1];
+    int port = atoi(argv[2]); 
+    //create a message buffer of size 500 chars
+    char msg[500];
     //setup a socket and connection tools 
     struct hostent* host = gethostbyname(serverIp); 
     sockaddr_in sendSockAddr;   
     bzero((char*)&sendSockAddr, sizeof(sendSockAddr)); 
     sendSockAddr.sin_family = AF_INET; 
-    sendSockAddr.sin_addr.s_addr = 
-        inet_addr(inet_ntoa(*(struct in_addr*)*host->h_addr_list));
+    sendSockAddr.sin_addr.s_addr = inet_addr(inet_ntoa(*(struct in_addr*)*host->h_addr_list));
     sendSockAddr.sin_port = htons(port);
     int clientSd = socket(AF_INET, SOCK_STREAM, 0);
     //try to connect...
@@ -56,7 +59,7 @@ int main(int argc, char *argv[])
                          (sockaddr*) &sendSockAddr, sizeof(sendSockAddr));
     if(status < 0)
     {
-        cout<<"Error connecting to socket!"<<endl; break;
+        cout<<"Error connecting to socket!"<<endl; 
     }
     cout << "Connected to the server!" << endl;
     int bytesRead, bytesWritten = 0;
