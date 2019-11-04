@@ -44,13 +44,13 @@ def recMessage():
 	sentence  = connectionSocket.recv(1024).decode()
 	res = checkForQuit()
 	if(res == "not"):
-		print("", (str(sentence)))
+		print("Client> ", (str(sentence)))
 		return "not"
 	else:
 		return "closed"
 
 def sendMessage():
-	sentence = input("Message:")
+	sentence = input("You> ")
 	connectionSocket.send(sentence.encode())
 	res = checkForQuit()
 
