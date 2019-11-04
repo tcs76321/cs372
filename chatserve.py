@@ -11,6 +11,10 @@
 from socket import *
 import sys
 
+# Preconditions:
+# NONE
+# Postconditions:
+# Correct number of arguements for rest of program
 def checkArguements():
 	# check numb of arguements given with running of script
 	if len(sys.argv) > 2:
@@ -28,6 +32,12 @@ def checkArguements():
 		print("I need a port number between and including 1024 and 49151")
 		exit()
 
+# Preconditions:
+# Correct number of arguements
+# Postconditions:
+# If completes without any errors
+# global hostname var with hostname
+# global serverSocket is TCP socket, that is binded to serverport passes, and listening for 1 connection
 def startUp():
 	global hostname
 	hostname = gethostname()
@@ -39,6 +49,11 @@ def startUp():
 	print("On port: ", serverPort)
 	print("Ready and Waiting...")
 
+# Preconditions:
+# connectionSokcet is valid
+# there is an open connection
+# Postconditions:
+# global sentence is what is what was recieved from socket
 def recMessage():
 	global sentence
 	sentence  = connectionSocket.recv(1024).decode()
@@ -49,11 +64,21 @@ def recMessage():
 	else:
 		return "closed"
 
+# Preconditions:
+# connectionSocket is valid
+# sentence is global
+# Postconditions:
+# NONE? I think???
 def sendMessage():
 	sentence = input("You> ")
 	connectionSocket.send(sentence.encode())
 	res = checkForQuit()
 
+# Preconditions:
+# connectionSocket is valid
+# and that it is an open socket connection to close if sentence is \quit
+# Postconditions:
+# if sentence was \quit connection closed
 def checkForQuit():
 	if(sentence == "\quit"):
 		print("Recieved or Sent \quit")
@@ -68,15 +93,17 @@ def checkForQuit():
 # And also then see if the arguement is in the valid range
 checkArguements()
 
+# get the connection started
 startUp()
 
-#only want to do this once
+# only want to do this once, originally in recMessage
 global connectionSocket
 connectionSocket, addr = serverSocket.accept()
+
 
 while True:
 	closer = recMessage()
 	if(closer == "closed"):
-		continue
+		continue # continune to allow for another client to connect after this
 	sendMessage()
 
