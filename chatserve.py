@@ -2,11 +2,11 @@
 # stahltr
 # chatserve.py
 # CS_372_400
-# Last_Modified: 11/3/2019
+# Last_Modified: 11/4/2019
 # Description: Simple python chat server that uses python3
 # Ciations: 
 # 1 - Takes code from Kurose Class textbook, modified of course for assignemnt specs
-# 2 -  
+# 2 - geeksforgeeks, heavily modified 
 
 from socket import *
 import sys
