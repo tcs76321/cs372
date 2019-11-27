@@ -1,0 +1,12 @@
+AUTHOR: Trevor Stahl, aka stahltr
+CLASS: CS 372 400 F2019
+PROGRAM: Project 2, ftp server client
+DESCRIPTION: 
+LAST MODIFIED(s): 
+	11/27/2019
+
+
+
+HOW TO COMPILE AND RUN BOTH SERVER AND CLIENT:
+
+
